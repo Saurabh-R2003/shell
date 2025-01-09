@@ -1,0 +1,116 @@
+commands which uses standard input
+commands which uses standard output
+linux commands which uses only standard input/output
+and both
+
+In Linux, standard input (stdin), standard output (stdout), and standard error (stderr) are three standard data streams that allow processes to interact with users or other processes. These streams are essential for I/O operations in shell scripting.
+
+---
+
+### **1. Standard Input (stdin)**  
+- **Purpose**: Accepts input data from the user or another process.
+- **Default Source**: The keyboard (unless redirected).
+- **File Descriptor**: `0`
+
+#### **Examples**:
+- **Interactive Input**:
+  ```bash
+  read name
+  echo "Hello, $name"
+  ```
+- **Redirecting Input from a File**:
+  ```bash
+  cat < file.txt
+  ```
+- **Using a Pipe**:
+  ```bash
+  echo "Hello" | tr 'a-z' 'A-Z'
+  ```
+
+---
+
+### **2. Standard Output (stdout)**  
+- **Purpose**: Outputs normal or expected results.
+- **Default Destination**: The terminal screen (unless redirected).
+- **File Descriptor**: `1`
+
+#### **Examples**:
+- **Basic Output**:
+  ```bash
+  echo "Hello, World!"
+  ```
+- **Redirecting Output to a File**:
+  ```bash
+  echo "Hello, World!" > output.txt
+  ```
+- **Appending Output to a File**:
+  ```bash
+  echo "Another line" >> output.txt
+  ```
+
+---
+
+### **3. Standard Error (stderr)**  
+- **Purpose**: Outputs error messages.
+- **Default Destination**: The terminal screen (unless redirected).
+- **File Descriptor**: `2`
+
+#### **Examples**:
+- **Error Message**:
+  ```bash
+  ls nonexistentfile
+  ```
+- **Redirecting Errors to a File**:
+  ```bash
+  ls nonexistentfile 2> error.txt
+  ```
+- **Suppressing Errors**:
+  ```bash
+  ls nonexistentfile 2> /dev/null
+  ```
+
+---
+
+### **Combining Streams**
+- **Redirect stdout and stderr to Different Files**:
+  ```bash
+  command > output.txt 2> error.txt
+  ```
+- **Redirect stdout and stderr to the Same File**:
+  ```bash
+  command > combined.txt 2>&1
+  ```
+  Or:
+  ```bash
+  command &> combined.txt
+  ```
+- **Redirect Both Streams to `/dev/null` (Suppress All Output)**:
+  ```bash
+  command > /dev/null 2>&1
+  ```
+
+---
+
+### **Piping Streams**
+- **Pipe stdout to Another Command**:
+  ```bash
+  ls | grep ".txt"
+  ```
+- **Pipe stdout and stderr Together**:
+  ```bash
+  command 2>&1 | grep "error"
+  ```
+
+---
+
+### **Summary Table**
+
+| Stream       | Descriptor | Default Source/Destination | Redirect Syntax  |
+|--------------|------------|----------------------------|------------------|
+| **stdin**    | `0`        | Keyboard                  | `<`              |
+| **stdout**   | `1`        | Terminal                  | `>` or `>>`      |
+| **stderr**   | `2`        | Terminal                  | `2>` or `2>>`    |
+
+These streams make it easy to control and manipulate input/output behavior in shell scripts, improving their efficiency and flexibility.
+
+
